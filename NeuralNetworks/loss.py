@@ -48,8 +48,10 @@ class SquaredLoss:
             y_pred = y_pred.reshape(-1, 1)
         if len(y_true.shape) == 1:
             y_true = y_true.reshape(-1, 1)
+        self.input_ = (y_pred, y_true)
 
-        raise NotImplementedError
+        return np.mean((y_pred-y_true)**2)
+
 
     def backward(self, grad=None, lr=None):
         """
@@ -68,5 +70,7 @@ class SquaredLoss:
             as no parameters are being updated yet.
         """
         assert grad is None
+        y_pred, y_true = self.input_
+        num = y_pred.shape[0]
+        return 2* (y_pred - y_true)
 
-        raise NotImplementedError
