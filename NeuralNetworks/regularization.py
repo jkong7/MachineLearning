@@ -34,7 +34,13 @@ class Regularizer:
         Note: weights[0, :] contains the intercept, and you should not apply
             regularization to those parameters.
         """
-        raise NotImplementedError
+        l1_grad = np.zeros_like(weights)
+        weights_only = weights[1:,:]
+        signs = np.sign(weights_only)
+        l1_grad[1:,:] = signs * self.alpha
+
+        return l1_grad
+
 
     def l2_grad(self, weights):
         """
@@ -47,4 +53,10 @@ class Regularizer:
         Note: weights[0, :] contains the intercept, and you should not apply
             regularization to those parameters.
         """
-        raise NotImplementedError
+        l2_grad = np.zeros_like(weights)
+        weights_only = weights[1:,:]
+        two_prop = 2 * weights_only 
+        l2_grad[1:,:] = two_prop * self.alpha
+
+        return l2_grad
+

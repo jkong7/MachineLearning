@@ -19,4 +19,12 @@ def custom_transform(data):
     Returns:
         A transformed data matrix that is (more) easily classified.
     """
-    raise NotImplementedError
+    x, y = data[:, 1], data[:, 0]
+
+    r = np.sqrt(x**2 + y**2)
+    r_sq = (np.sqrt(x**2 + y**2))**2
+    k = 3
+
+    return np.column_stack([r, np.sin(k*r_sq), np.cos(k*r_sq)])
+
+

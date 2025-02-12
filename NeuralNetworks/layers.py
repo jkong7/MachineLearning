@@ -41,8 +41,9 @@ class ReluActivation:
         First, save *a copy* of x to self.input_ for gradient updates
         Then, return ReLU(x) as a numpy calculation
         """
+        self.input_ = x.copy()
+        return np.maximum(x,0)
 
-        raise NotImplementedError
 
     def backward(self, grad, lr=None):
         """
@@ -57,8 +58,9 @@ class ReluActivation:
             so you don't need to use `lr`
           - But do remember to include `grad` in your calculation!
         """
-
-        raise NotImplementedError
+        relu_grad = np.zeros_like(self.input_)
+        relu_grad[self.input_>0] = 1
+        return relu_grad * grad
 
 
 class FullyConnected:
